@@ -1,0 +1,11 @@
+---
+# tasks file for ic_it.config_netplan_icadmin002
+- name: update netplan configuration
+  template:
+    src: 01-netcfg.yaml
+    dest: /etc/netplan/01-netcfg.yaml
+  register: netplan_updated
+
+- name: apply the netplan configuration
+  shell: netplan apply
+  when: netplan_updated.changed
